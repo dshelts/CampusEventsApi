@@ -2,7 +2,7 @@
 var MongoClient = require('mongodb').MongoClient;
 
 // Connect to the db
-MongoClient.connect("mongodb://giovanni:mozzarella@ds047930.mongolab.com:47930/ddelf", function(err, db) {
+MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/ddelf", function(err, db) {
   if(err){
   	return console.dir(err);
   }
@@ -10,7 +10,7 @@ MongoClient.connect("mongodb://giovanni:mozzarella@ds047930.mongolab.com:47930/d
     console.dir("The ship has landed.");
   }
 
-  var firstNames = ['Janice', 'Bill', 'Tommy', 'Michael', 'Dan', 'Rachelle', 'Shelly', 'Tom', 'Mark', 'Mike', 'Martin'];
+  var Events = ['Janice', 'Bill', 'Tommy', 'Michael', 'Dan', 'Rachelle', 'Shelly', 'Tom', 'Mark', 'Mike', 'Martin'];
   var lastNames = ['Sklensky', 'Bloch', 'Ratliff', 'Kahn', 'Herr', 'DeCoste', 'Leibowitz', 'Armstrong', 'LeBlanc', 'Gousie', 'Gagne'];
   var department = ['Mathematics', 'Computer Science'];
   var building = ['Old Science Center'];

@@ -61,6 +61,6 @@ MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messar
   collection.insert(events, {w:1}, function(err, result) {});
 
   console.dir('Mission Complete.');
-
+  db.close();//closing database
 });
 

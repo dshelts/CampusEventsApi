@@ -10,6 +10,7 @@ var users = require('./routes/users');
 
 var app = express();
 
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -22,11 +23,25 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// app.get('/homepage', routes);
+
 // respond with "Hello World!" on the homepage
 app.get('/', function (req, res) {
-  console.log(req.query);
+  console.log(res);
+  var MongoClient = require('mongodb').MongoClient;
+  MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messaround", function(err, db){
+    if(err){
+      return console.dir(err);
+    }
+    else {
+      console.log("Connected.");
+    }
 
-  res.send('Hello World!');
+    var collection = db.collection('CampusEvents');
+    // console.log(req.query);
+    console.log(db.collection.find(req.query));
+    db.close();
+  });
 })
 
 // accept POST request on the homepage

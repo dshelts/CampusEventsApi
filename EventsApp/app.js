@@ -24,7 +24,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // respond with "Hello World!" on the homepage
 app.get('/', function (req, res) {
-  console.log(res);
+  console.log(req.query);
+
   res.send('Hello World!');
 })
 

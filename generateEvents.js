@@ -25,11 +25,27 @@ MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messar
 	var location = ['here', 'there', 'elsewhere', 'TBD'];
 	var description = ['no description', 'Come have Fun', 'Free food', 'Learn something'];
 	var ranEvent, ranMonth, ranDay, ranYear, ranLocation, ranDesc;
-	for (for i=0; i<2500; i++) {
+	var eventArray= []
+	for (i=0; i<2500; i++) {
 		ranEvent = Math.floor((Math.random()* eventTitle.length));
-		//LEFT OFF HERE!
-	};
+		ranMonth = Math.floor((Math.random()* month.length));
+		ranDay = Math.floor((Math.random()* day.length));
+		ranYear = Math.floor((Math.random()* year.length));
+		ranLocation = Math.floor((Math.random()* location.length));
+		ranDesc = Math.floor((Math.random()* description.length));
+	
+		eventDoc = { 'Event': eventTitle[ranEvent],
+					'month': month[ranMonth],
+					'day': day[ranDay],
+					'year': year[ranYear],
+					'location':location[ranLocation],
+					'description':description[ranDesc]
+		};
 
+		eventArray.push(eventDoc)
+	};
+	collection.insert(eventArray, {w:1}, function(err, result) {});
+	console.log("finished insert")
 
 
 });

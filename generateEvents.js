@@ -38,7 +38,6 @@ MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messar
   		tempDoc = {'Title': titles[randomTitle],
   				   'ID': it,
   				   'Location':  locations[randomLocation],
-<<<<<<< HEAD
              		'Day of the Week':  dayOfWeek[randomDayOfWeek],
   				   'Date':  randomDate,
   				   'Month':  randomMonth,
@@ -46,15 +45,7 @@ MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messar
              		'Time':  randomTime,
   				   'Hosted By':  hosts[randomHost],
              		'Desription': descriptions[randomDesc]};
-=======
-                   'Day of the Week':  dayOfWeek[randomDayOfWeek],
-  				   'Date':  randomDate,
-  				   'Month':  randomMonth,
-  				   'Year':  randomYear,
-                   'Time':  randomTime,
-  				   'Hosted By':  hosts[randomHost],
-                   'Desription': descriptions[randomDesc]};
->>>>>>> 3d6a088bd8f31ddca1ea9a69798b9884a5077173
+
 
   		events.push(tempDoc);
   }

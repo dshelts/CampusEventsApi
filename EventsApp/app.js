@@ -27,28 +27,90 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // respond with "Hello World!" on the homepage
 app.get('/', function (req, res) {
-  console.log(res);
-  var MongoClient = require('mongodb').MongoClient;
-  MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messaround", function(err, db){
-    if(err){
-      return console.dir(err);
-    }
-    else {
-      console.log("Connected.");
-    }
 
-    var collection = db.collection('CampusEvents');
-    var myCursor = collection.find({});
-    while(myCursor.hasNext()){
-      console.log(printjson(myCursor.next()));
-    }
-    db.close();
-  });
-})
+    // console.log(res);
+    var MongoClient = require('mongodb').MongoClient;
+    MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messaround", function(err, db){
+      if(err){
+        return console.dir(err);
+      }
+      else {
+        console.log("Connected.");
+      }
+
+      db.collection('CampusEvents', function(err, collection) {
+        if(err){
+          return console.dir(err);
+        }
+
+        if('Date' in req.query){ req.query['Date'] = parseInt(req.query['Date']);};
+        if('Month' in req.query){ req.query['Month'] = parseInt(req.query['Month']);};
+        if('Year' in req.query){ req.query['Year'] = parseInt(req.query['Year']);};
+        if('ID' in req.query){ req.query['ID'] = parseInt(req.query['ID']);};
+
+        collection.find(req.query).toArray(function(err, docs) {
+          if(err){
+            return console.dir(err);
+          }
+          // console.log(docs);
+          console.log(req.query);
+          // console.log(docs.length);
+          res.json(docs);
+          db.close();
+        });
+      });
+    });
+});
+
 
 // accept POST request on the homepage
 app.post('/', function (req, res) {
-  res.send('Got a POST request');
+  var MongoClient = require('mongodb').MongoClient;
+    MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messaround", function(err, db){
+      if(err){
+        return console.dir(err);
+      }
+      else {
+        console.log("Connected.");
+      }
+
+      db.collection('CampusEvents', function(err, collection) {
+        if(err){
+          return console.dir(err);
+        }
+
+        var newEvent = {'Title': "None",
+                        'ID': -1,
+                        'Location':  "None",
+                        'Day of the Week':  "None",
+                        'Date':  0,
+                        'Month':  0,
+                        'Year':  0,
+                        'Time':  '12:00',
+                        'Hosted By':  "None",
+                        'Desription': "None"};
+
+        for(var key in req.query) {
+          if(key != 'ID') {
+            newEvent[key] = req.query[key];
+          }
+        }
+
+        parseInt(newEvent['Date']);
+        parseInt(newEvent['Month']);
+        parseInt(newEvent['Year']);
+
+        collection.insert(newEvent, function(err, createdEvent) {
+          if(err){
+            return console.dir(err);
+          }
+          res.json(createdEvent);
+          db.close();
+        });
+        // collection.insert(newEvent);
+        // res.json(newEvent);
+      });
+    });
 })
 
 // accept PUT request at /user

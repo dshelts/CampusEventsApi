@@ -38,8 +38,10 @@ app.get('/', function (req, res) {
     }
 
     var collection = db.collection('CampusEvents');
-    // console.log(req.query);
-    console.log(db.collection.find(req.query));
+    var myCursor = collection.find({});
+    while(myCursor.hasNext()){
+      console.log(printjson(myCursor.next()));
+    }
     db.close();
   });
 })

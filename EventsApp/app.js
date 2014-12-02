@@ -31,6 +31,7 @@ app.use(express.static(path.join(__dirname, '/')));
 
 // respond with "Hello World!" on the homepage
 app.get('/', function (req, res) {
+
     // console.log(res);
     var MongoClient = require('mongodb').MongoClient;
     MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messaround", function(err, db){
@@ -69,6 +70,7 @@ app.get('/', function (req, res) {
       });
     });
 });
+
 
 // accept POST request on the homepage
 app.post('/', function (req, res) {

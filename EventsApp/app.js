@@ -47,12 +47,20 @@ app.get('/', function (req, res) {
           return console.dir(err);
         }
 
-        if('Date' in req.query){ req.query['Date'] = parseInt(req.query['Date']);};
-        if('Month' in req.query){ req.query['Month'] = parseInt(req.query['Month']);};
-        if('Year' in req.query){ req.query['Year'] = parseInt(req.query['Year']);};
-        if('ID' in req.query){ req.query['ID'] = parseInt(req.query['ID']);};
+         // filter out blank queries from form
+        var user_query = {};
+        for(var key in req.query){
+          if(req.query[key] != ""){
+            user_query[key] = req.query[key];
+          }
+        }
 
-        collection.find(req.query).toArray(function(err, docs) {
+        if('Date' in user_query){ user_query['Date'] = parseInt(user_query['Date']);};
+        if('Month' in user_query){ user_query['Month'] = parseInt(user_query['Month']);};
+        if('Year' in user_query){ user_query['Year'] = parseInt(user_query['Year']);};
+        if('ID' in user_query){ user_query['ID'] = parseInt(user_query['ID']);};
+
+        collection.find(user_query).toArray(function(err, docs) {
           if(err){
             return console.dir(err);
           }
@@ -62,9 +70,19 @@ app.get('/', function (req, res) {
           // res.render('index', { title: 'test Campus Events', message: 'testing'});
 
           db.close();
-          // rea.locals.events = docs;
-          // res.json(docs);
-          res.render('index', { title: 'Campus Events', message: 'testing', events: docs});
+       
+          // options for querying search
+          var dayOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+          var date = [];
+          var months = [];
+          for(i=1; i<13; i++){
+            months.push(i);
+          }
+          for(i=1; i<32; i++){
+            date.push(i);
+          }
+          console.log(months);
+          res.render('index', { title: 'Campus Events', message: 'testing', events: docs, daysofweek: dayOfWeek, day: date, month: months});
 
         });
       });

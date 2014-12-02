@@ -4,14 +4,45 @@ block content
 	h1= title
 	p View our current list of events...
 
-	
+	form(action='/', method='get')
+		| Title: 
+		input(type='text', name='Title')
+		| Hosted By: 
+		input(type='text', name='HostedBy')
+		| Location: 
+		input(type='text', name='Location')
+		| Day of the Week: 
+		select(name="DayOfTheWeek")
+			option(value="")
+			option(value="Monday") Monday
+			option(value="Tuesday") Tuesday
+			option(value="Wednesday") Wednesday
+			option(value="Thursday") Thursday
+			option(value="Friday") Friday
+			option(value="Saturday") Saturday
+			option(value="Sunday") Sunday
+		| Day: 
+		select(name="Date")
+			- var n = 1
+			option(value="")
+			while n < 32
+				option(value=n) #{n++}
+		| Month: 
+		select(name="Month")
+			- var n = 1
+			option(value="")
+			while n < 13
+				option(value=n) #{n++}
+
+		input(type='submit', value='Filter')
+
 	table
 		tr
 		th ID
 		th Title
 		th Location
 		th Day of the Week
-		th Date
+		th Day
 		th Month
 		th Year
 		th Time

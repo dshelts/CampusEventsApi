@@ -1,5 +1,37 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+	h1= title
+	p View our current list of events...
+
+	
+	table
+		tr
+		th ID
+		th Title
+		th Location
+		th Day of the Week
+		th Date
+		th Month
+		th Year
+		th Time
+		th Hosted By
+		th Description
+
+
+		each ev in events
+			tr
+			td= ev.ID
+			td= ev.Title
+			td= ev.Location
+			td= ev.DayOfTheWeek
+			td= ev.Date
+			td= ev.Month
+			td= ev.Year
+			td= ev.Time
+			td= ev.HostedBy
+			td= ev.Description
+
+
+
+	

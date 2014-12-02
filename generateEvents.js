@@ -38,13 +38,13 @@ MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messar
   		tempDoc = {'Title': titles[randomTitle],
   				   'ID': it,
   				   'Location':  locations[randomLocation],
-             		'Day of the Week':  dayOfWeek[randomDayOfWeek],
+             'DayOfTheWeek':  dayOfWeek[randomDayOfWeek],
   				   'Date':  randomDate,
   				   'Month':  randomMonth,
   				   'Year':  randomYear,
-             		'Time':  randomTime,
-  				   'Hosted By':  hosts[randomHost],
-             		'Desription': descriptions[randomDesc]};
+             'Time':  randomTime,
+  				   'HostedBy':  hosts[randomHost],
+             'Desription': descriptions[randomDesc]};
 
 
   		events.push(tempDoc);

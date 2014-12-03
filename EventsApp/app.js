@@ -81,8 +81,8 @@ app.get('/', function (req, res) {
           for(i=1; i<32; i++){
             date.push(i);
           }
-          console.log(months);
-          res.render('index', { title: 'Campus Events', message: 'testing', events: docs, daysofweek: dayOfWeek, day: date, month: months});
+          // console.log(months);
+          res.render('index', { title: 'Campus Events', message: 'testing', events: docs, createdMessage: ''});
 
         });
       });
@@ -109,33 +109,42 @@ app.post('/', function (req, res) {
         var newEvent = {'Title': "None",
                         'ID': -1,
                         'Location':  "None",
-                        'Day of the Week':  "None",
+                        'DayOfTheWeek':  "None",
                         'Date':  0,
                         'Month':  0,
                         'Year':  0,
-                        'Time':  '12:00',
-                        'Hosted By':  "None",
-                        'Desription': "None"};
+                        'Time':  '12:00 PM',
+                        'HostedBy':  "None",
+                        'Description': "None"};
 
-        for(var key in req.query) {
-          if(key != 'ID') {
-            newEvent[key] = req.query[key];
+        for(var key in newEvent) {
+          if(key != 'Time') {
+            newEvent[key] = req.body[key];
+          }
+          else {
+            newEvent[key] = req.body['hour'] + ':' + req.body['minute'] + req.body['amORpm'];
           }
         }
 
-        parseInt(newEvent['Date']);
-        parseInt(newEvent['Month']);
-        parseInt(newEvent['Year']);
-
+        newEvent['ID'] = parseInt(newEvent['ID']);
+        newEvent['Date'] = parseInt(newEvent['Date']);
+        newEvent['Month'] = parseInt(newEvent['Month']);
+        newEvent['Year'] = parseInt(newEvent['Year']);
+        console.log(newEvent);
         collection.insert(newEvent, function(err, createdEvent) {
           if(err){
             return console.dir(err);
           }
-          res.json(createdEvent);
           db.close();
         });
         // collection.insert(newEvent);
+        // console.log(req.body);
         // res.json(newEvent);
+        var newDoc = [];
+        newDoc.push(newEvent);
+        var creationstring = 'Event Number ' + newEvent["ID"] + ' successfully created...';
+
+        res.render('index', { title: 'Campus Events', message: 'testing', events: newDoc, createdMessage: creationstring});
       });
     });
 })

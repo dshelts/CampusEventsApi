@@ -2,9 +2,12 @@ extends layout
 
 block content
 	h1= title
+	p= createdMessage
 	p View our current list of events...
 
-	form(action='/', method='get')
+	form(action='/', method='GET')
+		| ID Number: 
+		input(type='text', name='ID')
 		| Title: 
 		input(type='text', name='Title')
 		| Hosted By: 
@@ -38,7 +41,7 @@ block content
 
 	table
 		tr
-		th ID
+		th ID Number
 		th Title
 		th Location
 		th Day of the Week
@@ -62,6 +65,56 @@ block content
 			td= ev.Time
 			td= ev.HostedBy
 			td= ev.Description
+
+	form(action='/', method='POST')
+		| ID Number: 
+		input(type='text', name='ID')
+		| Title: 
+		input(type='text', name='Title')
+		| Hosted By: 
+		input(type='text', name='HostedBy')
+		| Location: 
+		input(type='text', name='Location')
+		| Day of the Week: 
+		select(name="DayOfTheWeek")
+			option(value="Monday") Monday
+			option(value="Tuesday") Tuesday
+			option(value="Wednesday") Wednesday
+			option(value="Thursday") Thursday
+			option(value="Friday") Friday
+			option(value="Saturday") Saturday
+			option(value="Sunday") Sunday
+		| Day: 
+		select(name="Date")
+			- var n = 1
+			while n < 32
+				option(value=n) #{n++}
+		| Month: 
+		select(name="Month")
+			- var n = 1
+			while n < 13
+				option(value=n) #{n++}
+		| Year: 
+		input(type='text', name='Year')
+		| Time:
+		select(name="hour")
+			- var n = 1
+			while n < 13
+				option(value=n) #{n++}
+		| :
+		select(name="minute")
+			option(value="00") 00
+			option(value="15") 15
+			option(value="30") 30
+			option(value="45") 45
+		| 
+		select(name="amORpm")
+			option(value=" AM") AM
+			option(value=" PM") PM
+		| Description: 
+		input(type='text', name='Description')
+
+		input(type='submit', value='Create Event')
 
 
 

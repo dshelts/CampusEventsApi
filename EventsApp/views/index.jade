@@ -1,121 +1,225 @@
 extends layout
 
 block content
-	h1= title
-	p= createdMessage
-	p View our current list of events...
+	.row
+		h1= title
+		p= createdMessage
+		p View our current list of events...
 
-	form(action='/', method='GET')
-		| ID Number: 
-		input(type='text', name='ID')
-		| Title: 
-		input(type='text', name='Title')
-		| Hosted By: 
-		input(type='text', name='HostedBy')
-		| Location: 
-		input(type='text', name='Location')
-		| Day of the Week: 
-		select(name="DayOfTheWeek")
-			option(value="")
-			option(value="Monday") Monday
-			option(value="Tuesday") Tuesday
-			option(value="Wednesday") Wednesday
-			option(value="Thursday") Thursday
-			option(value="Friday") Friday
-			option(value="Saturday") Saturday
-			option(value="Sunday") Sunday
-		| Day: 
-		select(name="Date")
-			- var n = 1
-			option(value="")
-			while n < 32
-				option(value=n) #{n++}
-		| Month: 
-		select(name="Month")
-			- var n = 1
-			option(value="")
-			while n < 13
-				option(value=n) #{n++}
+	.row
+		.large-12.columns
+			dl.tabs(data-tab='')
+				dd.active
+					a(href='#search') Search Events
+				dd
+					a(href='#add') Create Event
 
-		input(type='submit', value='Filter')
+	.tabs-content
+		#search.content.active
+			form(action='/', method='GET')
+				.row
+					.large-2.columns
+						label
+							| ID Number
+							input(type='text', name='ID', placeholder='999')
+					.large-4.columns
+						label
+							| Event Title
+							input(type='text', name='Title', placeholder='Club Meeting')
+					.large-3.columns
+						label
+							| Hosted By
+							input(type='text', name='HostedBy', placeholder='CS Club')
+					.large-3.columns
+						label
+							| Location
+							input(type='text', name='Location', placeholder='WHALE Lab')
+				.row
+					.large-7.columns
+						.row.collapse
+							label Date
+							.small-3.columns
+								select(name="DayOfTheWeek")
+									option(value="")
+									option(value="Monday") Monday
+									option(value="Tuesday") Tuesday
+									option(value="Wednesday") Wednesday
+									option(value="Thursday") Thursday
+									option(value="Friday") Friday
+									option(value="Saturday") Saturday
+									option(value="Sunday") Sunday
+							.small-2.columns
+								select(name="Month")
+									- var n = 1
+									option(value="")
+									while n < 13
+										option(value=n) #{n++}
+							.small-1.columns
+								span.prefix /
+							.small-2.columns
+								select(name="Date")
+									- var n = 1
+									option(value="")
+									while n < 32
+										option(value=n) #{n++}
+							.small-1.columns
+								span.prefix /
+							.small-3.columns
+								input(type='text', name='Year', placeholder='2014')
+					.large-5.columns
+						.row.collapse
+							label Time
+							.small-3.columns
+								select(name="hour")
+									option(value="")
+									option(value="1") 1
+									option(value="2") 2
+									option(value="3") 3
+									option(value="4") 4
+									option(value="5") 5
+									option(value="6") 6
+									option(value="7") 7
+									option(value="8") 8
+									option(value="9") 9
+									option(value="10") 10
+									option(value="11") 11
+									option(value="12") 12
+							.small-3.columns
+								span.prefix :
+							.small-3.columns
+								select(name="minute")
+									option(value="")
+									option(value="00") 00
+									option(value="15") 15
+									option(value="30") 30
+									option(value="45") 45
+							.small-3.columns
+								label
+									select(name="amORpm")
+										option(value="")
+										option(value=" AM") AM
+										option(value=" PM") PM
 
-	table
-		tr
-		th ID Number
-		th Title
-		th Location
-		th Day of the Week
-		th Day
-		th Month
-		th Year
-		th Time
-		th Hosted By
-		th Description
+				.row
+					.large-4.large-push-9.columns
+						input(type='submit', class="button", value='Filter Events')
+						
+
+		#add.content
+			form(action='/', method='POST')
+				.row
+					.large-2.columns
+						label
+							| ID Number
+							input(type='text', name='ID', placeholder='999')
+					.large-4.columns
+						label
+							| Event Title
+							input(type='text', name='Title', placeholder='Club Meeting')
+					.large-3.columns
+						label
+							| Hosted By
+							input(type='text', name='HostedBy', placeholder='CS Club')
+					.large-3.columns
+						label
+							| Location
+							input(type='text', name='Location', placeholder='WHALE Lab')
+				.row
+					.large-7.columns
+						.row.collapse
+							label Date
+							.small-3.columns
+								select(name="DayOfTheWeek")
+									option(value="Monday") Monday
+									option(value="Tuesday") Tuesday
+									option(value="Wednesday") Wednesday
+									option(value="Thursday") Thursday
+									option(value="Friday") Friday
+									option(value="Saturday") Saturday
+									option(value="Sunday") Sunday
+							.small-2.columns
+								select(name="Month")
+									- var n = 1
+									while n < 13
+										option(value=n) #{n++}
+							.small-1.columns
+								span.prefix /
+							.small-2.columns
+								select(name="Date")
+									- var n = 1
+									while n < 32
+										option(value=n) #{n++}
+							.small-1.columns
+								span.prefix /
+							.small-3.columns
+								input(type='text', name='Year', placeholder='2014')
+					.large-5.columns
+						.row.collapse
+							label Time
+							.small-3.columns
+								select(name="hour")
+									option(value="1") 1
+									option(value="2") 2
+									option(value="3") 3
+									option(value="4") 4
+									option(value="5") 5
+									option(value="6") 6
+									option(value="7") 7
+									option(value="8") 8
+									option(value="9") 9
+									option(value="10") 10
+									option(value="11") 11
+									option(value="12") 12
+							.small-3.columns
+								span.prefix :
+							.small-3.columns
+								select(name="minute")
+									option(value="00") 00
+									option(value="15") 15
+									option(value="30") 30
+									option(value="45") 45
+							.small-3.columns
+								label
+									select(name="amORpm")
+										option(value=" AM") AM
+										option(value=" PM") PM
+				.row
+					.large-12.columns
+						label
+							| Description
+							textarea(name='Description', placeholder='Event description here...')
+				.row
+					.large-4.large-push-9.columns
+						input(type='submit', class="button", value='Create Event')
+
+	.row
+		.large-12.columns
+			table
+				thead
+					tr
+						th(width="15") ID
+						th(width="150") Event Title
+						th(width="100") Hosted By
+						th(width="100") Location
+						th(width="80") Week Day
+						th(width="10") Month
+						th(width="15") Day
+						th(width="20") Year
+						th(width="80") Time
+						th(width="200") Description
+
+				tbody
+					each ev in events
+						tr
+							td= ev.ID
+							td= ev.Title
+							td= ev.HostedBy
+							td= ev.Location
+							td= ev.DayOfTheWeek
+							td= ev.Month
+							td= ev.Date
+							td= ev.Year
+							td= ev.Time
+							td= ev.Description
 
 
-		each ev in events
-			tr
-			td= ev.ID
-			td= ev.Title
-			td= ev.Location
-			td= ev.DayOfTheWeek
-			td= ev.Date
-			td= ev.Month
-			td= ev.Year
-			td= ev.Time
-			td= ev.HostedBy
-			td= ev.Description
-
-	form(action='/', method='POST')
-		| ID Number: 
-		input(type='text', name='ID')
-		| Title: 
-		input(type='text', name='Title')
-		| Hosted By: 
-		input(type='text', name='HostedBy')
-		| Location: 
-		input(type='text', name='Location')
-		| Day of the Week: 
-		select(name="DayOfTheWeek")
-			option(value="Monday") Monday
-			option(value="Tuesday") Tuesday
-			option(value="Wednesday") Wednesday
-			option(value="Thursday") Thursday
-			option(value="Friday") Friday
-			option(value="Saturday") Saturday
-			option(value="Sunday") Sunday
-		| Day: 
-		select(name="Date")
-			- var n = 1
-			while n < 32
-				option(value=n) #{n++}
-		| Month: 
-		select(name="Month")
-			- var n = 1
-			while n < 13
-				option(value=n) #{n++}
-		| Year: 
-		input(type='text', name='Year')
-		| Time:
-		select(name="hour")
-			- var n = 1
-			while n < 13
-				option(value=n) #{n++}
-		| :
-		select(name="minute")
-			option(value="00") 00
-			option(value="15") 15
-			option(value="30") 30
-			option(value="45") 45
-		| 
-		select(name="amORpm")
-			option(value=" AM") AM
-			option(value=" PM") PM
-		| Description: 
-		input(type='text', name='Description')
-
-		input(type='submit', value='Create Event')
-
-
-
-	

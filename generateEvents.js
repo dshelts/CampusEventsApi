@@ -13,6 +13,7 @@ MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messar
   var titles = ["Guest Speaker", "Leadership Talk", "Dinner with the President", "Rubix Cube Solving", "Pub Night", "Drawing Class"];
   var locations = ["Balfour-Hood", "The Sem", "CS Lab", "Whale Lab", "Montana", "Watson Fine Arts", "Meneely", "Chase Dining Hall", "Emerson Dining Hall", "Haas Athletic Center", "Pappas Fitness Center"];
   var years = [2011, 2012, 2013, 2014, 2015];
+  var minutes = ["00", "15", "30", "45"];
   var dayOfWeek = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
   var hosts = ['CS Club', 'Math Club', 'Career Advising', 'SHAG', 'Bacchus', 'Math/CS Department', 'Fencing Club', 'Global Education', 'President Hanno'];
   var descriptions = ['Come to this event, it will be fun!', 'This event has snacks and tea!',];
@@ -24,9 +25,8 @@ MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messar
       var randomLocation = Math.floor((Math.random() * locations.length));
 
       var hour = Math.floor((Math.random() * 12) + 1);
-      var minute = Math.floor((Math.random() * 59) + 1);
-      if(minute<10) { minute = '0' + minute;}
-      var randomTime = hour + ':' + minute + am_or_pm[Math.floor((Math.random() * 2))];
+      var randomMinute = Math.floor((Math.random() * minutes.length));
+      var randomTime = hour + ':' + minutes[randomMinute] + am_or_pm[Math.floor((Math.random() * 2))];
      
       var randomDayOfWeek = Math.floor((Math.random() * dayOfWeek.length));
       var randomYear = Math.floor((Math.random() * years.length));
@@ -41,7 +41,7 @@ MongoClient.connect("mongodb://dshelly:abc123@ds047930.mongolab.com:47930/messar
              'DayOfTheWeek':  dayOfWeek[randomDayOfWeek],
   				   'Date':  randomDate,
   				   'Month':  randomMonth,
-  				   'Year':  randomYear,
+  				   'Year':  years[randomYear],
              'Time':  randomTime,
   				   'HostedBy':  hosts[randomHost],
              'Desription': descriptions[randomDesc]};
